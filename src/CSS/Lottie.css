@@ -1,0 +1,12 @@
+.lotties{
+  display: label;
+  grid-template-columns: auto auto;
+  margin-top:2% ;
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px){
+  .lotties{
+    display: grid;
+    grid-template-columns: auto;
+  }
+}
