@@ -5,6 +5,7 @@ import 'primeicons/primeicons.css';
 import 'antd/dist/antd.css';
 import './CSS/App.css';
 import Routes from './utils/Routes';
+import FinishTime from './Component/FinishTime';
 
 class App extends Component {
   state = {
@@ -14,7 +15,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Routes/>
+         <Routes/> 
+      
       </div>
     );
   }

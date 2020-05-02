@@ -1,0 +1,19 @@
+body{
+  background:#dff9fb; 
+  width: 100%;
+  height: 100%;
+}
+
+.divStyle{
+    position: relative;
+    margin: auto;
+    width:35%;
+    }
+
+.buttonStyle{
+      font-family: "Lucida Console", Courier, monospace;
+      font-size:18px;
+      background:rgba(129, 114, 127, 0.918) ;
+      width:30%;
+      margin: 0.5%;
+    }

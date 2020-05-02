@@ -16,11 +16,11 @@ class GetLotties extends Component{
         return(
             <div>
                 <Lottie options={defaultOptions}
-                height={200}
-                width={300}
                 />
             </div>
         )
+        /* height={200}
+                width={300} */
     }
 }
 

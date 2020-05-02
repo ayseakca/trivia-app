@@ -50,7 +50,7 @@ class Category extends Component{
     getStart(){
         const categoryId = this.state.category.id;
         const difficulty = this.state.difficulty;  
-
+      
         this.props.history.push("/start-quiz", {categoryId: categoryId, difficulty: difficulty});
     }
     

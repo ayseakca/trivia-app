@@ -3,11 +3,14 @@ import { notification } from 'antd';
 import Question from './Question';
 import { getQuestionByCategoryAndDifficulty } from '../utils/APIUtil';
 import '../CSS/App.css';
-import ReactDOM from "react-dom";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import '../CSS/timer.css';
 import fireworks from '../LottieJson/fireworks.json'
 import GetLottie from '../LottieComponent/GetLotties'
+import wrongLottie from '../LottieJson/wrongAnswer.json'
+import Example from './Example';
+import Welcome from './Welcome'
+import { withRouter } from 'react-router';
+import { getTimer } from './TimerNew';
+import Timer from './Timer';
 
 class Quiz extends Component {
 
@@ -15,13 +18,15 @@ class Quiz extends Component {
         super(props);
         this.state = {
             quiz:  [],    
-            result: true
+            result: true,
+
         };
         this.index = 0;
         this.point=0;
-        this.time = true;
 
     }
+    
+
 
     async componentDidMount() {
         const categoryId = this.props.location.state.categoryId;
@@ -29,7 +34,7 @@ class Quiz extends Component {
 
         getQuestionByCategoryAndDifficulty(categoryId, difficulty)
             .then(data => {
-                this.setState({quiz: data.results})       
+                this.setState({quiz: data.results})      
             }).catch(error => {
                 console.log(error);
                 notification.error({
@@ -37,46 +42,53 @@ class Quiz extends Component {
                     description: "Upps! Something goes wrong :(",
                 });
             });
+            ////timer
+
       }
 
-
-    sendAnswer = (quiz, answer) => {
-        this.time = false;
-        
+    sendAnswer = (quiz, answer) => {   
         this.setState({result: quiz.correct_answer === answer});
         if(this.state.quiz.length-1 > this.index){
             this.point=this.point+100;
-            this.index=this.index+1;            
-        }else if(this.state.quiz.length-1 == this.index){
+            this.index=this.index+1;
+        }else if(this.state.quiz.length-1 === this.index){
             this.point=this.point+100;
             this.index=this.index+1;
+            
+
         }else{
             this.state.result=false;
         }
 
   };
 
-    
-
     render(){
-        
 
        if(this.state.result){             
             if(this.state.quiz.length==this.index){
+                if(this.state.quiz.length==this.index && this.index!=0){
                 return (
                     <div>
                     <h3>Congratulations to you!!!</h3>
                     <h1>Total Point: {this.point}</h1>
                     <div className='lotties'><GetLottie animationData={fireworks}/></div>
-                    </div> );  
+                    </div> );
+                } else{
+                    return (
+                        <div>
+                        <h3>Loading...</h3>
+                        </div> );
+
+                } 
             }else{
                 return (
                     <div>
                         <div>
                             <div className="labelStyle" >
                                 <label >Question:{this.index+1}/{this.state.quiz.length} Point:{this.point}</label>
-                            </div> 
-                        </div>
+                            </div>
+                        </div>   
+                        {getTimer(this.props.history)}                     
                         <Question quiz={this.state.quiz[this.index]} sendAnswer={(quiz, answer) => this.sendAnswer(quiz, answer)}/>
                     </div>
                 );       
@@ -86,6 +98,9 @@ class Quiz extends Component {
                 <div>
                     <h2>Uppss! Game Over :(</h2>
                     <h1>Score: {this.point-100}</h1> 
+                    <div className='lotties'>
+                        <GetLottie animationData={wrongLottie}/>                          
+                     </div>
                 </div> 
             )
         }
@@ -93,4 +108,4 @@ class Quiz extends Component {
     }
 
 }
-export default Quiz;
+export default withRouter(Quiz);

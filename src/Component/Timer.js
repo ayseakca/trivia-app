@@ -1,37 +1,64 @@
 import React, { Component } from 'react';
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { withRouter } from 'react-router-dom';
 
 class Timer extends Component{
+  constructor() {
+    super();
+    this.state = {
+      time: {}, seconds: 15, 
+    };
+    this.timer =0;
+    this.startTimer = this.startTimer.bind(this);
+    this.countDown = this.countDown.bind(this);
+}
 
-    render(){
+componentDidMount(){ 
+  let timeLeftVar = this.secondsToTime(this.state.seconds);
+  this.setState({ time: timeLeftVar });
+  this.startTimer();
+}
 
-        const renderTime = ({ remainingTime }) => {
-          if (remainingTime === 0) {
-              return <div className="timer">Too lale...</div>;
-          }
-        
-          return (
-            <div className="timer">
-              <div className="text">Remaining</div>
-              <div className="value">{remainingTime}</div>
-              <div className="text">seconds</div>
-            </div>
-          );
-        };
+secondsToTime(secs){
+
+  let divisor_for_minutes = secs % (60 * 60);
+  let minutes = Math.floor(divisor_for_minutes / 60);
+
+  let divisor_for_seconds = divisor_for_minutes % 60;
+  let seconds = Math.ceil(divisor_for_seconds);
+
+  let obj = {
+    "m": minutes,
+    "s": seconds
+  };
+  return obj;
+}
+
+startTimer() {
+  if (this.timer === 0 && this.state.seconds > 0) {
+    this.timer = setInterval(this.countDown, 1000);
+  }
+  
+}
+
+countDown() {
+ 
+  let seconds = this.state.seconds - 1;
+  this.setState({
+    time: this.secondsToTime(seconds),
+    seconds: seconds,
+  });
+
+  if ( seconds === 0 ) {  
+    return this.props.history.push("/time-up");     
+  } 
     
-        return(
-            <div className="timer-wrapper">
-                      <CountdownCircleTimer
-                                        isPlaying
-                                        duration={15}
-                                        initialRemainingTime={15}
-                                        colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
-                                        onComplete={() => [false, 1000]}
-                                    >
-                                        {renderTime}
-                                    </CountdownCircleTimer>
-                                </div>
-        );
-    }
+}
+render() {
+  return(
+    <div>
+      Time: {this.state.time.s}
+    </div>
+  );
+}
 
-}export default Timer;
+}export default withRouter(Timer);

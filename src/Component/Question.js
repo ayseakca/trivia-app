@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import '../CSS/Lottie.css';
 import GetLotties from '../LottieComponent/GetLotties';
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import Timer from "./Timer";
 import bottomLottie from '../LottieJson/duck-out.json';
+import Timer from './Timer';
+//import { withRouter } from 'react-router';
 
 
 class Question extends Component {
 
     constructor() {
         super();
-        this.state = { };
-
+        this.state = { option1:'',
+                       option2:'',
+                       option3:'',
+                       option4:''          
+                      };
+        this.answers=[];
+        this.shuffleParam=[];
     }
-
+   
     shuffle(array) {
         var tmp, current, top = array.length;
         if(top) while(--top) {
@@ -26,12 +31,17 @@ class Question extends Component {
         }
 
     render(){
-
-      const answers=[this.props.quiz.correct_answer,this.props.quiz.incorrect_answers[0],this.props.quiz.incorrect_answers[1],this.props.quiz.incorrect_answers[2]]
-      if(true){
-        for (var a=[],i=0;i<4;++i) a[i]=i;
-        a= this.shuffle(a);
-        console.log(answers[0]);
+      this.answers=[this.props.quiz.correct_answer,this.props.quiz.incorrect_answers[0],this.props.quiz.incorrect_answers[1],this.props.quiz.incorrect_answers[2]];
+      console.log("render geldi")
+      for (var a=[],i=0;i<4;++i) a[i]=i;
+      this.shuffleParam= this.shuffle(a);
+      this.state.option1=this.answers[this.shuffleParam[0]];
+      this.state.option2=this.answers[this.shuffleParam[1]];
+      this.state.option3=this.answers[this.shuffleParam[2]];
+      this.state.option4=this.answers[this.shuffleParam[3]];
+      
+        console.log("answer ",this.answers[0]);
+        
         const style = {
           divStyle:{
           position: 'relative',
@@ -56,20 +66,23 @@ class Question extends Component {
       
         return(
           <div>
-            <Timer/>
+                {/* <div>
+                  <Timer />
+                </div> */}
               <div style={style.divStyle}>
+                {console.log("htmldeyim")}
                 <p style={style.questionStyle}>{this.props.quiz.question}</p>
-                <p><button style={style.buttonStyle} onClick={(quiz, answer) => this.props.sendAnswer(this.props.quiz, answers[a[0]])}>{answers[a[0]]}</button></p>
-                <p><button style={style.buttonStyle} onClick={(quiz, answer) => this.props.sendAnswer(this.props.quiz, answers[a[1]])}>{answers[a[1]]}</button></p>
-                <p><button style={style.buttonStyle} onClick={(quiz, answer) => this.props.sendAnswer(this.props.quiz, answers[a[2]])}>{answers[a[2]]}</button></p>
-                <p><button style={style.buttonStyle} onClick={(quiz, answer) => this.props.sendAnswer(this.props.quiz, answers[a[3]])}>{answers[a[3]]}</button></p>     
-              </div>
+                <p><button style={style.buttonStyle} onClick={(quiz, answer) => this.props.sendAnswer(this.props.quiz, this.state.option1)}>{this.state.option1}</button></p>
+                <p><button style={style.buttonStyle} onClick={(quiz, answer) => this.props.sendAnswer(this.props.quiz, this.state.option2)}>{this.state.option2}</button></p>
+                <p><button style={style.buttonStyle} onClick={(quiz, answer) => this.props.sendAnswer(this.props.quiz, this.state.option3)}>{this.state.option3}</button></p>
+                <p><button style={style.buttonStyle} onClick={(quiz, answer) => this.props.sendAnswer(this.props.quiz, this.state.option4)}>{this.state.option4}</button></p>     
+            </div>
             <div className='lotties'>
                  <GetLotties animationData={bottomLottie}/>                          
             </div>
           </div>
         );
-       }
+       
     }
     
 }

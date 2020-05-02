@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import Welcome from '../Component/Welcome';
 import Quiz from '../Component/Quiz';
+import FinishTime from '../Component/FinishTime';
 
 class Routes extends Component {
 
@@ -14,7 +15,7 @@ class Routes extends Component {
                 <Switch>
                     <Route exact path="/" component={Welcome}/>
                     <Route exact path="/start-quiz" component={Quiz}/>
-                
+                    <Route exact path="/time-up" component={FinishTime}/>
 
                 </Switch>
             </div>
