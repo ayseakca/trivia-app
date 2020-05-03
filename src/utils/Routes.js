@@ -8,6 +8,7 @@ import Welcome from '../Component/Welcome';
 import Quiz from '../Component/Quiz';
 import FinishTime from '../Component/FinishTime';
 import GameOver from '../Component/GameOver';
+import FinishGame from '../Component/FinishGame';
 
 class Routes extends Component {
 
@@ -18,7 +19,7 @@ class Routes extends Component {
                     <Route exact path="/start-quiz" component={Quiz}/>
                     <Route exact path="/time-up" component={FinishTime}/>
                     <Route exact path="/wrong-answer" component={GameOver}/>
-
+                    <Route exact path="/finish-game" component={FinishGame}/>
                 </Switch>
             </div>
     }

@@ -5,15 +5,6 @@
     width:30%;
     }
 
-.buttonStyle{
-      font-family: "Lucida Console", Courier, monospace;
-      font-size:18px;
-      color: #dbf0f8bd ;
-      background:rgb(199, 138, 7) ;
-      width:10%;
-      padding: 2px;
-      margin: 0.5%;
-    }
 .gameOver{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size:18px;

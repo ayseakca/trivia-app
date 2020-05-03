@@ -1,8 +1,12 @@
 const API_BASE_URL = "https://opentdb.com";
 
 const request = (options) => {
+
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+    });
     
-    options = Object.assign({}, options);
+    options = Object.assign({}, headers, options);
 
     return fetch(options.url, options)
     .then(response =>

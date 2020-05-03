@@ -3,9 +3,10 @@ import {notification} from 'antd';
 import Question from './Question';
 import {getQuestionByCategoryAndDifficulty} from '../utils/APIUtil';
 import '../CSS/App.css';
-import GameOver from './GameOver';
-import FinishGame from './FinishGame';
 import {withRouter} from 'react-router';
+import GetLotties from '../LottieComponent/GetLotties';
+import loading from '../LottieJson/loading.json';
+import '../CSS/Finish.css'
 
  
 
@@ -74,6 +75,8 @@ class Quiz extends Component {
         this.startTimer();
         if(quiz.correct_answer !== answer){
             this.setState({result: false});
+            clearInterval(this.timer);
+            this.props.history.push("/wrong-answer", this.point);
         } else if (this.state.quiz.length - 1 > this.index) {
             this.point = this.point + s *10;
             this.index = this.index + 1;
@@ -81,6 +84,8 @@ class Quiz extends Component {
         } else if (this.state.quiz.length - 1 === this.index) {
             this.point = this.point + s *10;
             this.index = this.index + 1;
+            clearInterval(this.timer);
+            this.props.history.push("/finish-game", this.point);
         }
 
     };
@@ -128,35 +133,23 @@ class Quiz extends Component {
     render() {
 
         if (this.state.result && this.state.sendQuiz !== null) {
-            if (this.state.quiz.length === this.index) {
-                return (<FinishGame point={this.point}/>)
-            } else {
-                return (
-                    <div>
-                        <div className="labelStyle">
-                            
-                             <label  className="labelStyle">Question : {this.index + 1}/{this.state.quiz.length} </label> <label className="labelStyle">Point : {this.point}</label>
-                
-                        </div>
-                        <div className="timerStyle">
-                            {this.renderTime}
-                        </div>
-                        <Question quiz={this.state.sendQuiz}
-                                  sendAnswer={(quiz, answer) => this.sendAnswer(quiz, answer)}/>
-                    </div>
-                );
-            }
-        } else if (!this.state.result) {
-            clearInterval(this.timer);
             return (
                 <div>
-                    <GameOver point={this.point}/>
+                    <div className="labelStyle">
+                        <label  className="labelStyle">Question : {this.index + 1}/{this.state.quiz.length} </label> <label className="labelStyle">Point : {this.point}</label>
+                    </div>
+                    <div className="timerStyle">
+                        {this.renderTime}
+                    </div>
+                    <Question quiz={this.state.sendQuiz}
+                            sendAnswer={(quiz, answer) => this.sendAnswer(quiz, answer)}/>
                 </div>
-            )
+            );
         } else {
             return (
                 <div>
-                    <h3>Loading...</h3>
+                    <h1>Loading...</h1>
+                    <div className="gameOverLottieStyle"> <GetLotties animationData={loading}/></div>
                 </div>);
 
         }

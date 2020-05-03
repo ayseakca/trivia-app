@@ -99,6 +99,9 @@ class Category extends Component{
                         <GetLotties animationData={bookLottie} />  
                     </div>                        
                 </div>
+                <div className="header">
+                    <h2>WELCOME TO TRIVA GAME</h2>
+                </div>
                 <div className="divStyle">
                     <div className="dropdown"> 
                         <AutoComplete  value={this.state.category} suggestions={this.state.filteredCategories} completeMethod={this.filteredCategories} 
