@@ -1,0 +1,39 @@
+.labelStyle{
+    position: relative;
+    margin: auto;
+    width:50%;
+    padding:2%;
+    font-family: '"Lucida Console", Courier, monospace';
+    font-size: 32px;
+  }
+.timerStyle{
+    padding: 2px;
+    font-family: '"Lucida Console", Courier, monospace';
+    font-size: 18px;
+}
+ 
+.divStyleQuestion{
+        position:relative;
+        margin: auto;
+        width:50%;
+        padding: 2%;
+        background: #c7ecee48;
+    }
+.questionStyle {
+        font-size: 18px;
+        padding-bottom: 3%;
+        font-family: "Lucida Console", Courier, monospace;
+    }
+.optionStyle {
+        font-family: '"Lucida Console", Courier, monospace';
+        font-size: 18px;
+        background: #60a3bc48  ;
+        width: 50%;
+    }
+
+.bottomLottie{
+        position: relative;
+        margin: auto;
+        width:25%;
+}
+

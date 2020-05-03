@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import GetLotties from '../LottieComponent/GetLotties';
 import timesUpLottie from '../LottieJson/times-up.json';
-import '../CSS/finish.css'
+import '../CSS/Finish.css'
 class FinishTime extends Component{
 
     render(){
         return(
             <div>
-                <div className='divStyle'>
+                <div className='finishLottieStyle'>
                     <div className='lotties'>
                         <GetLotties animationData={timesUpLottie} />                          
                     </div>

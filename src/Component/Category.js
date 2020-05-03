@@ -5,6 +5,9 @@ import {AutoComplete} from 'primereact/autocomplete';
 import {Button} from 'primereact/button';
 import {Dropdown} from 'primereact/dropdown';
 import { getCategory } from '../utils/APIUtil';
+import '../CSS/Category.css'
+import GetLotties from '../LottieComponent/GetLotties';
+import bookLottie from '../LottieJson/books.json';
 
 
 
@@ -48,12 +51,24 @@ class Category extends Component{
     }
 
     getStart(){
-        const categoryId = this.state.category.id;
-        const difficulty = this.state.difficulty;  
-      
-        this.props.history.push("/start-quiz", {categoryId: categoryId, difficulty: difficulty});
-    }
+       
+        if( this.state.category == null || this.state.difficulty ==null){
+            notification.error({
+                message: 'Trivia Game',
+                description: "Please, Select a Category and Difficulty."
+            });
+            return(
+                <div><Category/></div>
     
+            );
+
+        }else{
+            const categoryId = this.state.category.id;
+            const difficulty = this.state.difficulty;
+            this.props.history.push("/start-quiz", {categoryId: categoryId, difficulty: difficulty});
+
+        }
+    }
 
     componentDidMount(){
         getCategory()
@@ -75,24 +90,28 @@ class Category extends Component{
 
         ];
 
-        const divStyle = {
-            margin:'3%',
-        };
 
         return(
             
             <div >
-                <div style={divStyle}> 
-                    <AutoComplete  value={this.state.category} suggestions={this.state.filteredCategories} completeMethod={this.filteredCategories} 
-                    field="name"
-                    size={30} minLength={1} placeholder="Select a Category" dropdown={true} 
-                    itemTemplate={this.itemTemplate.bind(this)} onChange={(e) => this.setState({category: e.value})} />
+			    <div className="divLottie">
+                    <div className='lotties'>
+                        <GetLotties animationData={bookLottie} />  
+                    </div>                        
                 </div>
-                <div style={divStyle}> 
-                    <Dropdown value={this.state.difficulty} options={difficultyList} onChange={(e) => {this.setState({difficulty: e.value})}} placeholder="Select Difficulty"/>
-                </div>
-                <div style={divStyle}>
-                    <Button label="Go to Game" icon="pi pi-check" iconPos="right" onClick={() => this.getStart()}/>
+                <div className="divStyle">
+                    <div className="dropdown"> 
+                        <AutoComplete  value={this.state.category} suggestions={this.state.filteredCategories} completeMethod={this.filteredCategories} 
+                        field="name"
+                        size={30} minLength={1} placeholder="Select a Category" dropdown={true} 
+                        itemTemplate={this.itemTemplate.bind(this)} onChange={(e) => this.setState({category: e.value})} />
+                    </div>
+                    <div className="dropdown"> 
+                        <Dropdown value={this.state.difficulty} options={difficultyList} onChange={(e) => {this.setState({difficulty: e.value})}} placeholder="Select Difficulty"/>
+                    </div>
+                    <div className="dropdown">
+                        <Button label="Go to Game" icon="pi pi-check" iconPos="right" onClick={() => this.getStart()}/>
+                    </div>
                 </div>
             </div>
         );

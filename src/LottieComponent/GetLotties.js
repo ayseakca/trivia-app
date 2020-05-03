@@ -19,8 +19,6 @@ class GetLotties extends Component{
                 />
             </div>
         )
-        /* height={200}
-                width={300} */
     }
 }
 

@@ -6,7 +6,7 @@ class Welcome extends Component{
 
     render(){
         return(
-            <di><Category/></di>
+            <div><Category/></div>
 
         );
     }

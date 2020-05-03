@@ -10,3 +10,20 @@
     grid-template-columns: auto;
   }
 }
+.timeLottieStyle{
+  position: relative;
+  margin: auto;
+  width:35%;
+}
+
+.gameOverLottieStyle{
+  position: relative;
+  margin: auto;
+  width:30%;
+}
+
+.finishLottieStyle{
+  position: relative;
+  margin: auto;
+  width:30%;
+}

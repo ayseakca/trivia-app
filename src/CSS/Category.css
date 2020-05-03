@@ -1,0 +1,16 @@
+.divStyle{
+    position:relative;
+    margin: auto;
+    width:35%;
+}
+
+.divLottie{
+    position: relative;
+    margin: auto;
+    width:15%;
+}
+
+.dropdown{
+    position: relative;
+    margin: 5%;
+}

@@ -1,19 +1,24 @@
-body{
-  background:#dff9fb; 
-  width: 100%;
-  height: 100%;
-}
 
-.divStyle{
+.finishLottieStyle{
     position: relative;
     margin: auto;
-    width:35%;
+    width:30%;
     }
 
 .buttonStyle{
       font-family: "Lucida Console", Courier, monospace;
       font-size:18px;
-      background:rgba(129, 114, 127, 0.918) ;
-      width:30%;
+      color: #dbf0f8bd ;
+      background:rgb(199, 138, 7) ;
+      width:10%;
+      padding: 2px;
       margin: 0.5%;
     }
+.gameOver{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size:18px;
+}
+.point{  
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size:14px;
+}
