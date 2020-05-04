@@ -8,7 +8,8 @@ import { getCategory } from '../utils/APIUtil';
 import '../CSS/Category.css'
 import GetLotties from '../LottieComponent/GetLotties';
 import bookLottie from '../LottieJson/books.json';
-
+import loading from '../LottieJson/loading.json';
+import Welcome from './Welcome';
 
 
 class Category extends Component{
@@ -18,7 +19,8 @@ class Category extends Component{
         this.state={
             allCategories: [
                 {name: "sdadsas", value: "9"}
-            ]
+            ],
+            loading: false
 
         };
 
@@ -28,9 +30,10 @@ class Category extends Component{
     filteredCategories(event) {
         setTimeout(() => {
             let results;
-
+       
             if (event.query.length === 0) {
                 results = [...this.state.allCategories.trivia_categories];
+                
             }
             else {
                 results = this.state.allCategories.trivia_categories.filter((category) => {
@@ -52,15 +55,14 @@ class Category extends Component{
 
     getStart(){
        
-        if( this.state.category == null || this.state.difficulty ==null){
+        if( this.state.category == null || this.state.difficulty == null){         
             notification.error({
                 message: 'Trivia Game',
                 description: "Please, Select a Category and Difficulty."
             });
-            return(
                 <div><Category/></div>
-    
             );
+            this.props.history.push("/");
 
         }else{
             const categoryId = this.state.category.id;
@@ -71,14 +73,19 @@ class Category extends Component{
     }
 
     componentDidMount(){
+        this.setState({loading: true});
         getCategory()
             .then(data => {
+                this.setState({loading: false});
                 this.setState({allCategories: data});        
             }).catch(error => {
+                this.setState({loading: false});
                 notification.error({
                     message: 'Trivia Game',
-                    description: "Upps! Something goes wrong :(",
+                    description: "Upps! Something goes wrong.",
                 });
+                window.location.reload(false);
+                
             });
     }
 
@@ -94,6 +101,10 @@ class Category extends Component{
         return(
             
             <div >
+                {this.state.loading ? <div className="loading">
+            <h2> Loading...</h2> 
+            <div className="gameOverLottieStyle"> <GetLotties animationData={loading}/></div>
+                </div> : ""}
 			    <div className="divLottie">
                     <div className='lotties'>
                         <GetLotties animationData={bookLottie} />  

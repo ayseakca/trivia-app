@@ -21,7 +21,7 @@ class GameOver extends Component{
         return(
             <div>
                 <div>
-                    <div className="gameOver"> <h2>Uppss! Game Over :( </h2></div>
+                    <div className="gameOver"> <h2>Uppss! Wrong Ansver & Game Over :( </h2></div>
                     <div className="point"><h1>Total Point: {this.props.location.state}</h1> </div>
                     <div className="gameOverLottieStyle">
                         <div className='lotties'>

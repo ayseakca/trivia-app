@@ -18,11 +18,13 @@ class Quiz extends Component {
             time: {"m": 0, "s": 15}, seconds: 15,
             quiz: [],
             result: true,
-            sendQuiz: null
+            sendQuiz: null,
+            loading: false
         };
         this.index = 0;
         this.point = 0;
         this.timer = 0;
+        
     }
 
     shuffle = (array) => {
@@ -52,6 +54,8 @@ class Quiz extends Component {
     };
 
     componentDidMount() {
+        this.setState({loading: true});
+        clearInterval(this.timer);
         this.countDown();
         this.startTimer();
         const categoryId = this.props.location.state.categoryId;
@@ -59,13 +63,18 @@ class Quiz extends Component {
 
         getQuestionByCategoryAndDifficulty(categoryId, difficulty)
             .then(data => {
+                this.setState({loading: false});
                 this.setState({quiz: data.results});
                 this.shuffleAnswer(data.results[0]);
             }).catch(error => {
+                console.log("catch error ",this.state.loading);
+                this.setState({loading: false});
+                this.props.history.push("/");
             notification.error({
                 message: 'Trivia Game',
-                description: "Upps! Something goes wrong :(",
+                description: "Upps! An error occurred while loading data from the server :(",
             });
+            
         });
     }
 
@@ -146,9 +155,12 @@ class Quiz extends Component {
                 </div>
             );
         } else {
+            clearInterval(this.timer);
+            this.timer=0;
             return (
+                
                 <div>
-                    <h1>Loading...</h1>
+                    {this.state.loading ? <div><h2>Loading...</h2></div> : this.timer = setInterval(this.countDown, 1000) }
                     <div className="gameOverLottieStyle"> <GetLotties animationData={loading}/></div>
                 </div>);
 
