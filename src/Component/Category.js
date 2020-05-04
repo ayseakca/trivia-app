@@ -60,8 +60,6 @@ class Category extends Component{
                 message: 'Trivia Game',
                 description: "Please, Select a Category and Difficulty."
             });
-                <div><Category/></div>
-            );
             this.props.history.push("/");
 
         }else{
