@@ -9,7 +9,7 @@ import '../CSS/Category.css'
 import GetLotties from '../LottieComponent/GetLotties';
 import bookLottie from '../LottieJson/books.json';
 import loading from '../LottieJson/loading.json';
-import Welcome from './Welcome';
+
 
 
 class Category extends Component{
